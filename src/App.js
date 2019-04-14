@@ -42,7 +42,6 @@ class App extends Component {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                // console.log(data.name + ' | ' + data.population + ' | ' + data.climate + ' | ' + data.terrain)
                 if (data.name === 'unknown') {
                     this.findPlanet()
                     return
