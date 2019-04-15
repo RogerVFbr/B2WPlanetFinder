@@ -128,7 +128,7 @@
 .btn-find-planet {
 	width: 97.5%;
 	margin-left: 5px !important;
-	margin-top: 5px !important;
+	margin-top: -4px !important;
 	background-color: #00C0A8 !important;
 	font-weight: 600 !important;
 
@@ -177,7 +177,7 @@
 
 #homecontainer {
 	width: 510px;
-	height: 545px;
+	height: 538px;
 	top: 0px;
 }
 .home-viewscontainer-responsive {
