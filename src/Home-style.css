@@ -131,6 +131,7 @@
 	margin-top: -4px !important;
 	background-color: #00C0A8 !important;
 	font-weight: 600 !important;
+	height: 50px !important;
 
 }
 
@@ -177,7 +178,7 @@
 
 #homecontainer {
 	width: 510px;
-	height: 538px;
+	height: 555px;
 	top: 0px;
 }
 .home-viewscontainer-responsive {
