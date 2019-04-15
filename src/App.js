@@ -19,6 +19,7 @@ class App extends Component {
             climate: '',
             terrain: '',
             featured: [],
+            fetching: false,
             api_endpoint: 'https://swapi.co/api/planets/'
         }
     }
@@ -61,21 +62,7 @@ class App extends Component {
             })
             let i;
             for (i = 0; i < films.length; i++) {
-                fetch(films[i])
-                    .then(response => response.json())
-                    .then(data => {
-                        if (fetching) {
-                            this.setState({
-                                featured: []
-                            })
-                            fetching = false;
-                        }
-                        let release_year = data.release_date.split('-')[0]
-                        let film = data.title + ' (' + data.director + ', ' + release_year + ')'
-                        this.setState(prevState => ({
-                            featured: [...prevState.featured, <div key={film}>{film}</div>]
-                        }))
-                    })
+                fetching = this.updateFilmData(films[i],fetching)
             }
         }
 
@@ -84,6 +71,24 @@ class App extends Component {
                 featured: [<div key={1}><em>Not featured on any movies</em></div>]
             })
         }
+    }
+
+    updateFilmData = (film, fetching) => {
+        fetch(film)
+            .then(response => response.json())
+            .then(data => {
+                if (fetching) {
+                    this.setState({
+                        featured: []
+                    })
+                }
+                let release_year = data.release_date.split('-')[0]
+                let film = data.title + ' (' + data.director + ', ' + release_year + ')'
+                this.setState(prevState => ({
+                    featured: [...prevState.featured, <div key={film}>{film}</div>]
+                }))
+            })
+        return false;
     }
 
     formatPopulation = (pop) => {
