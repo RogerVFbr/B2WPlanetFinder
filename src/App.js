@@ -14,28 +14,23 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: 'Fetching planet...',
-            population: '-',
-            climate: '-',
-            terrain: '-',
+            name: '',
+            population: '',
+            climate: '',
+            terrain: '',
             featured: [],
             api_endpoint: 'https://swapi.co/api/planets/'
         }
     }
 
     componentDidMount() {
+        this.initializeData()
         this.findPlanet()
     }
 
     findPlanet = () => {
 
-        this.setState({
-            name: 'Fetching planet...',
-            population: '-',
-            climate: '-',
-            terrain: '-',
-            featured: []
-        })
+        this.initializeData()
 
         let url = this.state.api_endpoint + (Math.floor(Math.random() * 60)+1) + '/'
 
@@ -60,12 +55,23 @@ class App extends Component {
 
     findFeaturedFilms = (films) => {
 
+        let fetching = true;
+
         if (films.length) {
+            this.setState(prevState => ({
+                featured: [<div key={1}><em>Fetching {films.length} movie(s)...</em></div>]
+            }))
             let i;
             for (i = 0; i < films.length; i++) {
                 fetch(films[i])
                     .then(response => response.json())
                     .then(data => {
+                        if (fetching) {
+                            this.setState({
+                                featured: []
+                            })
+                            fetching = false;
+                        }
                         let release_year = data.release_date.split('-')[0]
                         let film = data.title + ' (' + data.director + ', ' + release_year + ')'
                         this.setState(prevState => ({
@@ -77,7 +83,7 @@ class App extends Component {
 
         else {
             this.setState(prevState => ({
-                featured: [...prevState.featured, <div key={1}><em>Not featured on any movies</em></div>]
+                featured: [<div key={1}><em>Not featured on any movies</em></div>]
             }))
         }
     }
@@ -91,6 +97,15 @@ class App extends Component {
         if (pop>=1000000000000 && pop<1000000000000000)  {return pop/1000000000000 + ' tril.'}
     }
 
+    initializeData = () => {
+        this.setState({
+            name: 'Fetching planet...',
+            population: '-',
+            climate: '-',
+            terrain: '-',
+            featured: []
+        })
+    }
 
     render() {
         return (
