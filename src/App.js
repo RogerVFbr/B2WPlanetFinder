@@ -29,7 +29,6 @@ class App extends Component {
     }
 
     findPlanet = () => {
-
         this.initializeData()
 
         let url = this.state.api_endpoint + (Math.floor(Math.random() * 60)+1) + '/'
@@ -54,13 +53,12 @@ class App extends Component {
     }
 
     findFeaturedFilms = (films) => {
-
         let fetching = true;
 
         if (films.length) {
-            this.setState(prevState => ({
+            this.setState({
                 featured: [<div key={1}><em>Fetching {films.length} movie(s)...</em></div>]
-            }))
+            })
             let i;
             for (i = 0; i < films.length; i++) {
                 fetch(films[i])
@@ -82,9 +80,9 @@ class App extends Component {
         }
 
         else {
-            this.setState(prevState => ({
+            this.setState({
                 featured: [<div key={1}><em>Not featured on any movies</em></div>]
-            }))
+            })
         }
     }
 
