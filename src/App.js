@@ -51,6 +51,9 @@ class App extends Component {
 
                 this.findFeaturedFilms(data.films)
             })
+            .catch(err => {
+                console.error('Failed retrieving planet at ' + url + ' : ' + err);
+            })
     }
 
     findFeaturedFilms = (films) => {
@@ -86,7 +89,10 @@ class App extends Component {
                 let film = data.title + ' (' + data.director + ', ' + release_year + ')'
                 this.setState(prevState => ({
                     featured: [...prevState.featured, <div key={film}>{film}</div>]
-                }))
+                }));
+            })
+            .catch(err => {
+                console.error('Failed retrieving movie at ' + film + ' : ' + err);
             })
         return false;
     }
