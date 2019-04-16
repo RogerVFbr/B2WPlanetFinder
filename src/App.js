@@ -19,7 +19,6 @@ class App extends Component {
             climate: '',
             terrain: '',
             featured: [],
-            fetching: false,
             api_endpoint: 'https://swapi.co/api/planets/'
         }
     }
